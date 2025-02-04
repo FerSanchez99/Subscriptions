@@ -1,0 +1,40 @@
+ [
+  {
+    "id": 1,
+    "titulo": "Suscripción Básica",
+    "precio": "5.99",
+    "modalidad": "ANUAL",
+    "descripcion": "Accede a contenido básico, ideal para quienes desean lo esencial.",
+    "beneficios": [
+      "Acceso a artículos limitados al mes",
+      "Descuentos en productos seleccionados",
+      "Acceso a la newsletter semanal"
+    ]
+  },
+  {
+    "id": 2,
+    "titulo": "Suscripción Premium",
+    "precio": "12.99",
+    "modalidad": "ANUAL",
+    "descripcion": "Accede a contenido exclusivo y características adicionales.",
+    "beneficios": [
+      "Acceso ilimitado a todos los artículos",
+      "Descuentos especiales en todos los productos",
+      "Acceso anticipado a nuevas funciones",
+      "Asistencia al cliente prioritaria"
+    ]
+  },
+  {
+    "id": 3,
+    "titulo": "Suscripción VIP",
+    "precio": "25.99",
+    "modalidad": "MENSUAL",
+    "descripcion": "La experiencia más completa, con todas las ventajas y más.",
+    "beneficios": [
+      "Todo en la suscripción Premium",
+      "Acceso exclusivo a eventos en vivo",
+      "Regalos y sorpresas personalizadas",
+      "Consultas personalizadas con expertos"
+    ]
+  }
+]
