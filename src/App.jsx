@@ -1,20 +1,21 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Subscriptions from "./pages/subscriptions";
-import Payment from "./pages/payment";
+import Payment from "./pages/payment_:(";
+import Login from "./pages/login";
+import Success from "./pages/success";
 import Navbar from "./components/navbar";
 
 export default function App() {
   return (
     <>
       <Navbar />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Subscriptions />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/subscriptions" element={<Subscriptions />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<Subscriptions />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/subscriptions" element={<Subscriptions />} />
+        <Route path="/success" element={<Success />} />
+      </Routes>
     </>
   );
 }
