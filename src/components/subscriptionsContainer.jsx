@@ -12,7 +12,7 @@ const SubscriptionContainer = ({subscription}) => {
   }
   
   return <>
-    <div className="min-h-100 rounded mx-2 bg-[#fbf7fc] p-3 shadow-sm flex flex-col justify-between">
+    <div className="min-h-110 rounded md:w-90 mx-2 bg-[#fbf7fc] p-3 shadow-sm flex flex-col justify-between">
       <div>
         <span className='font-semibold text-xl'>{subscription.titulo}</span>
         <p className='my-1'>{subscription.descripcion}</p>
