@@ -4,9 +4,12 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Email from '@mui/icons-material/Email';
 import Password from '@mui/icons-material/Password';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 import "react-multi-carousel/lib/styles.css";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,7 +23,12 @@ const Login = () => {
     };
 
     fetch(`http://dev.zurii.io/api/Authenticate?username=${email}&password=${password}`, requestOptions)
-      .then((response) => console.log(response))
+      .then((response) => {
+        localStorage.setItem('JWT', response['access_token']);
+        const decodedJWT = jwtDecode(response['access_token']);
+        localStorage.setItem('userId', decodedJWT['user_id']);
+        navigate("/")
+      })
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
   }

@@ -1,27 +1,20 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import Carousel from "react-multi-carousel";
 import SubscriptionContainer from '../components/subscriptionsContainer';
 import "react-multi-carousel/lib/styles.css";
-import dummySubscriptions from '../assets/dummy/subscriptions.json'
+import dummySubscriptions from '../assets/dummy/subscriptions.json';
 
 const Subscriptions = () => {
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3 // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2 // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1 // optional, default to 1.
+  const [currentSuscriptionId, setCurrentSuscriptionId] = useState([]);
+
+  useEffect(() => {
+    if(localStorage.getItem('JWT')){
+      // TODO: Checar suscripciones vigentes
+      // setCurrentSuscriptionId(response)
     }
-  };
+  }, [])
+
   return <>
     <div className='w-full flex justify-center mt-15'>
       <div className='w-5/6 md:w-3/4 bg-white rounded-xl p-3 md:p-10 m-5 shadow-2xl'>
@@ -31,9 +24,9 @@ const Subscriptions = () => {
           Para continuar usando la aplicación, selecciona una de las opciones de suscripción disponibles. ¡Cada plan está diseñado para ofrecerte la mejor experiencia según tus necesidades!
         </p>
         <br />
-        <div className="flex flex-col md:flex-row md:justify-evenly overflow-scroll gap-5">
+        <div className="flex flex-col md:flex-row md:justify-evenly overflow-scroll gap-5 relative">
           {dummySubscriptions.map((sub, i) => {
-            return <SubscriptionContainer subscription={sub} key={i} />
+            return <SubscriptionContainer subscription={sub} key={i} active={currentSuscriptionId.includes(sub.id)} />
           })}
         </div>
       </div>
