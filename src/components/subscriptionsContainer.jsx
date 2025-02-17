@@ -34,7 +34,7 @@ const SubscriptionContainer = ({subscription, active}) => {
     fetch(`/create-checkout-session`, requestOptions)
       .then((response) => {
         console.log(response);
-        //TODO Mandar llamar activate_costumer
+        //! AQUI NO SE HACE NADA VDD?
       })
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
