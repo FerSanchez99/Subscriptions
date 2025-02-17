@@ -1,14 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const SubscriptionContainer = ({subscription, active}) => {
+  const navigate = useNavigate();
 
   const checkIfLoggedIn = (e) => {
     e.preventDefault();
     if(!localStorage.getItem('JWT')){
-      return navigate("/login")
+      return navigate("/login");
     }
-    send_create_checkout_session()
+    send_create_checkout_session();
   }
 
   const send_create_checkout_session = () => {

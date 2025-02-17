@@ -7,13 +7,30 @@ import dummySubscriptions from '../assets/dummy/subscriptions.json';
 
 const Subscriptions = () => {
   const [currentSuscriptionId, setCurrentSuscriptionId] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([]);
 
   useEffect(() => {
     if(localStorage.getItem('JWT')){
       // TODO: Checar suscripciones vigentes
       // setCurrentSuscriptionId(response)
     }
+    fetchSubscriptions();
   }, [])
+
+  const fetchSubscriptions = () => {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow"
+    };
+    
+    fetch("http://dev.zurii.io/api/stripe_suscriptions", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => {
+        console.error(error);
+        setSubscriptions(dummySubscriptions);
+      });
+  }
 
   return <>
     <div className='w-full flex justify-center mt-15'>
@@ -24,8 +41,8 @@ const Subscriptions = () => {
           Para continuar usando la aplicación, selecciona una de las opciones de suscripción disponibles. ¡Cada plan está diseñado para ofrecerte la mejor experiencia según tus necesidades!
         </p>
         <br />
-        <div className="flex flex-col md:flex-row md:justify-evenly overflow-scroll gap-5 relative">
-          {dummySubscriptions.map((sub, i) => {
+        <div className="flex flex-col md:flex-row md:justify-evenly gap-5 relative">
+          {subscriptions.map((sub, i) => {
             return <SubscriptionContainer subscription={sub} key={i} active={currentSuscriptionId.includes(sub.id)} />
           })}
         </div>
