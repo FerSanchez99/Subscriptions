@@ -7,30 +7,26 @@ import Password from '@mui/icons-material/Password';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import "react-multi-carousel/lib/styles.css";
+import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
 
   const getJWT = () => {
-    const headers = new Headers();
-    headers.append("Content-Type", "application/x-www-form-urlencoded");
 
-    const requestOptions = {
-      method: "POST",
-      headers: headers
-    };
-
-    fetch(`http://dev.zurii.io/api/Authenticate?username=${email}&password=${password}`, requestOptions)
-      .then((response) => {
-        localStorage.setItem('JWT', response['access_token']);
-        const decodedJWT = jwtDecode(response['access_token']);
-        localStorage.setItem('userId', decodedJWT['user_id']);
-        navigate("/")
-      })
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    axios.post(`http://dev.zurii.io/api/Authenticate?username=${email}&password=${password}`)
+    .then((response) => {
+      localStorage.setItem('JWT', response.data['access_token']);
+      const decodedJWT = jwtDecode(response.data['access_token']);
+      localStorage.setItem('userId', decodedJWT['user_id']);
+      navigate("/")
+    })
+    .catch((error) => {
+      setLoginError(true)
+    })
   }
 
   return <>
@@ -55,6 +51,7 @@ const Login = () => {
           <div className='cursor-pointer bg-primary rounded text-center mt-5 w-full block py-2 hover:bg-secondary' onClick={() => getJWT()}>
             <span className='text-white uppercase'>Acceder</span>
           </div>
+          {loginError && <span className='text-red-500 mt-3'>Correo o contraseña equivocado</span>}
         </div>
       </div>
     </div>
