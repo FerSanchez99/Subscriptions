@@ -41,7 +41,7 @@ const SubscriptionContainer = ({subscription, active}) => {
   }
   
   return <>
-    <div className="min-h-110 rounded md:w-90 mx-2 bg-[#fbf7fc] p-3 shadow-sm flex flex-col justify-between relative">
+    <div className=" text-gray-900 min-h-110 rounded md:w-90 mx-2 bg-[#fbf7fc] p-3 shadow-sm flex flex-col justify-between relative">
       {active && <span className='bg-indigo-300 z-10 absolute px-2 py-1 right-0 top-0 rounded font-semibold'>ACTIVA</span>}
       <div>
         <span className='font-semibold text-xl'>{subscription.titulo}</span>

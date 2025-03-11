@@ -44,7 +44,7 @@ const Subscriptions = () => {
         <div className='w-5/6 md:w-3/4 bg-white rounded-xl p-3 md:p-10 m-5 shadow-2xl'>
           <p className='text-primary text-3xl font-bold text-center'>Elige tu plan y accede a todas las ventajas</p>
           <br />
-          <p className="font-light text-lg text-center">
+          <p className="font-light text-lg text-center text-gray-900">
             Para continuar usando la aplicación, selecciona una de las opciones de suscripción disponibles. ¡Cada plan está diseñado para ofrecerte la mejor experiencia según tus necesidades!
           </p>
           <br />
