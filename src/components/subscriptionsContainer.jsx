@@ -31,7 +31,7 @@ const SubscriptionContainer = ({subscription, active}) => {
       body: raw
     };
 
-    fetch(`/create-checkout-session`, requestOptions)
+    fetch(`https://ssl.zurii.io/api/create-checkout-session`, requestOptions)
       .then((response) => {
         console.log(response);
         //! AQUI NO SE HACE NADA VDD?
