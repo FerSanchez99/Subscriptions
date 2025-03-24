@@ -17,7 +17,7 @@ const Login = () => {
 
   const getJWT = () => {
 
-    axios.post(`http://dev.zurii.io/api/Authenticate?username=${email}&password=${password}`)
+    axios.post(`https://ssl.zurii.io/api/Authenticate?username=${email}&password=${password}`)
     .then((response) => {
       localStorage.setItem('JWT', response.data['access_token']);
       const decodedJWT = jwtDecode(response.data['access_token']);

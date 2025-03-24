@@ -24,7 +24,7 @@ const Subscriptions = () => {
 
   const fetchSubscriptions = () => {
 
-    axios.get('http://dev.zurii.io/api/stripe_suscriptions')
+    axios.get('https://ssl.zurii.io/api/stripe_suscriptions')
     .then(function (response) {
       setSubscriptions(response.data);
     })

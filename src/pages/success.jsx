@@ -25,7 +25,7 @@ const Success = () => {
       body: raw
     };
 
-    fetch(`http://dev.zurii.io/api/activate-customer`, requestOptions)
+    fetch(`https://ssl.zurii.io/api/activate-customer`, requestOptions)
       .then((response) => console.log(response))
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
