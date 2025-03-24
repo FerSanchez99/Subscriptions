@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const SubscriptionContainer = ({subscription, active}) => {
   const navigate = useNavigate();
@@ -15,29 +16,17 @@ const SubscriptionContainer = ({subscription, active}) => {
 
   const send_create_checkout_session = () => {
     if(!subscription.lookup_key) return;
-
-    const headers = new Headers();
-    headers.append("Content-Type", "application/x-www-form-urlencoded");
-
-    const raw = JSON.stringify({
-      "user_id": localStorage.getItem('userId'),
-      "bearer": localStorage.getItem('JWT'),
-      "lookup_key": subscription.lookup_key
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: headers,
-      body: raw
-    };
-
-    fetch(`https://ssl.zurii.io/api/create-checkout-session`, requestOptions)
-      .then((response) => {
-        console.log(response);
-        //! AQUI NO SE HACE NADA VDD?
-      })
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    axios.post('https://ssl.zurii.io/api/create-checkout-session', {
+      user_id: localStorage.getItem('userId'),
+      bearer: localStorage.getItem('JWT'),
+      lookup_key: subscription.lookup_key
+    })
+    .then(function (response) {
+      window.open(response.data['url'], '_blank').focus();
+    })
+    .catch(function (error) {
+      console.log(error.data);
+    })
   }
   
   return <>
