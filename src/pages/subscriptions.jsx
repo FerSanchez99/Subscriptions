@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SubscriptionContainer from '../components/subscriptionsContainer';
 import "react-multi-carousel/lib/styles.css";
 import dummySubscriptions from '../assets/dummy/subscriptions.json';
@@ -10,12 +11,21 @@ const Subscriptions = () => {
   const [currentSuscriptionId, setCurrentSuscriptionId] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
   const [loginSucess, setLoginSucess] = useState(false);
+  const navigate = useNavigate();
+
+  const checkIfLoggedIn = () => {
+    if(!localStorage.getItem('JWT')){
+      return navigate("/login");
+    }
+  }
 
   useEffect(() => {
     if(localStorage.getItem('JWT')){
       // TODO: Checar suscripciones vigentes
       // setCurrentSuscriptionId(response)
       setLoginSucess(true)
+    }else{
+      checkIfLoggedIn()
     }
     if(subscriptions.length == 0) {
       fetchSubscriptions();

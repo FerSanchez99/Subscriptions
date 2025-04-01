@@ -1,20 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const SubscriptionContainer = ({subscription, active}) => {
-  const navigate = useNavigate();
-
-  const checkIfLoggedIn = (e) => {
-    e.preventDefault();
-    if(!localStorage.getItem('JWT')){
-      return navigate("/login");
-    }
-    send_create_checkout_session();
-  }
 
   const send_create_checkout_session = () => {
+    console.log('Redirecting to payment')
     if(!subscription.lookup_key) return;
     axios.post('https://ssl.zurii.io/api/create-checkout-session', {
       user_id: localStorage.getItem('userId'),
@@ -54,7 +45,7 @@ const SubscriptionContainer = ({subscription, active}) => {
             <span className='text-white uppercase'>Contratar</span>
           </div>
         </form> */}
-        <div className='cursor-pointer bg-primary rounded text-center w-full block py-2 hover:bg-secondary' onClick={checkIfLoggedIn}>
+        <div className='cursor-pointer bg-primary rounded text-center w-full block py-2 hover:bg-secondary' onClick={send_create_checkout_session}>
             <span className='text-white uppercase'>Contratar</span>
         </div>
       </div>
