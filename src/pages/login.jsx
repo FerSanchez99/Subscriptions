@@ -17,11 +17,13 @@ const Login = () => {
 
   const getJWT = () => {
 
-    axios.post(`https://ssl.zurii.io/api/Authenticate?username=${email}&password=${password}`)
+    const encodedPassword = encodeURIComponent(password);
+    axios.post(`https://ssl.zurii.io/api/Authenticate?username=${email}&password=${encodedPassword}`)
     .then((response) => {
       localStorage.setItem('JWT', response.data['access_token']);
       const decodedJWT = jwtDecode(response.data['access_token']);
       localStorage.setItem('userId', decodedJWT['user_id']);
+      localStorage.setItem('userName', decodedJWT['name']);
       navigate("/")
     })
     .catch((error) => {

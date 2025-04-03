@@ -11,6 +11,7 @@ const Subscriptions = () => {
   const [currentSuscriptionId, setCurrentSuscriptionId] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
   const [loginSucess, setLoginSucess] = useState(false);
+  const [userName, setUserName] = useState('');
   const navigate = useNavigate();
 
   const checkIfLoggedIn = () => {
@@ -24,6 +25,7 @@ const Subscriptions = () => {
       // TODO: Checar suscripciones vigentes
       // setCurrentSuscriptionId(response)
       setLoginSucess(true)
+      setUserName(localStorage.getItem('userName'))
     }else{
       checkIfLoggedIn()
     }
@@ -50,8 +52,13 @@ const Subscriptions = () => {
         <span>Login exitoso</span>
         <Close sx={{ color: 'black', mr: 1, my: 0.5 }} onClick={() => setLoginSucess(false)} />
       </div>}
-      <div className='w-full flex justify-center'>
-        <div className='w-5/6 md:w-3/4 bg-white rounded-xl p-3 md:p-10 m-5 shadow-2xl'>
+      <div className='w-full flex flex-col justify-items-center'>
+        <div className='w-5/6 md:w-3/4 bg-white rounded-xl p-3 md:p-10 shadow-2xl mx-auto'>
+          <span className='text-xl text-primary'>Bienvenid@
+            <span className='font-semibold'>{` ${userName}`}</span>
+          </span>
+        </div>
+        <div className='w-5/6 md:w-3/4 bg-white rounded-xl p-3 md:p-10 m-5 shadow-2xl mx-auto'>
           <p className='text-primary text-3xl font-bold text-center'>Elige tu plan y accede a todas las ventajas</p>
           <br />
           <p className="font-light text-lg text-center text-gray-900">
