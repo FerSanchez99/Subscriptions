@@ -18,7 +18,7 @@ const Login = () => {
   const getJWT = () => {
 
     const encodedPassword = encodeURIComponent(password);
-    axios.post(`https://ssl.zurii.io/api/Authenticate?username=${email}&password=${encodedPassword}`)
+    axios.post(`${import.meta.env.VITE_API_URL}/Authenticate?username=${email}&password=${encodedPassword}`)
     .then((response) => {
       localStorage.setItem('JWT', response.data['access_token']);
       const decodedJWT = jwtDecode(response.data['access_token']);
@@ -53,6 +53,7 @@ const Login = () => {
           <div className='cursor-pointer bg-primary rounded text-center mt-5 w-full block py-2 hover:bg-secondary' onClick={() => getJWT()}>
             <span className='text-white uppercase'>Acceder</span>
           </div>
+          <span className='text-primary underline cursor-pointer hover:text-secondary' onClick={() => navigate("/signup")}>No tengo cuenta</span>
           {loginError && <span className='text-red-500 mt-3'>Correo o contraseña equivocado</span>}
         </div>
       </div>

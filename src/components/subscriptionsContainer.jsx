@@ -7,7 +7,7 @@ const SubscriptionContainer = ({subscription, active}) => {
   const send_create_checkout_session = () => {
     console.log('Redirecting to payment')
     if(!subscription.lookup_key) return;
-    axios.post('https://ssl.zurii.io/api/create-checkout-session', {
+    axios.post(`${import.meta.env.VITE_API_URL}/create-checkout-session`, {
       user_id: localStorage.getItem('userId'),
       bearer: localStorage.getItem('JWT'),
       lookup_key: subscription.lookup_key

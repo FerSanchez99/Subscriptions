@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import Cancel from "./pages/cancel";
 import Success from "./pages/success";
 import Navbar from "./components/navbar";
+import SignUp from "./pages/signup";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/subscriptions" element={<Subscriptions />} />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </>
   );

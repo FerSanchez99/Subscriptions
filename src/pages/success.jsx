@@ -8,13 +8,13 @@ const Success = () => {
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
-    if(query && !sessionId){
-      sendActivateCustomer
+    if(query.get('session_id') && !sessionId){
+      sendActivateCustomer(query.get('session_id'))
     }
   }, [])
 
-  const sendActivateCustomer = async () => {
-    await setSessionId(query.get('session_id'));
+  const sendActivateCustomer = async (session_id_query) => {
+    await setSessionId(session_id_query);
     activateCustomer();
   }
 
@@ -32,7 +32,7 @@ const Success = () => {
       body: raw
     };
 
-    fetch(`https://ssl.zurii.io/api/activate-customer`, requestOptions)
+    fetch(`${import.meta.env.VITE_API_URL}/activate-customer`, requestOptions)
       .then((response) => console.log(response))
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
@@ -48,15 +48,16 @@ const Success = () => {
             <span>¡Gracias por tu suscripción! Ahora tienes acceso completo a todos nuestros servicios. Disfruta de la experiencia y si tienes alguna duda, no dudes en contactarnos. ¡Bienvenido!</span>
           </div>
         </div>
-        <form action="https://ssl.zurii.io/api/create-portal-session" method="POST">
+        <form action={`${import.meta.env.VITE_API_URL}/create-portal-session`} method="POST">
           <input
+            type="hidden"
             type="hidden"
             id="session-id"
             name="session_id"
             value={sessionId}
           />
           <button id="checkout-and-portal-button" type="submit">
-            Gestiona tu información de facturación
+            Gestiona tu suscripción
           </button>
         </form>
       </div>
