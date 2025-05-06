@@ -12,6 +12,7 @@ const Subscriptions = () => {
   const [subscriptions, setSubscriptions] = useState([]);
   const [loginSucess, setLoginSucess] = useState(false);
   const [userName, setUserName] = useState('');
+  const [hasSuscription, setHasSuscription] = useState(false)
   const navigate = useNavigate();
 
   const checkIfLoggedIn = () => {
@@ -22,8 +23,24 @@ const Subscriptions = () => {
 
   useEffect(() => {
     if(localStorage.getItem('JWT')){
-      // TODO: Checar suscripciones vigentes
-      // setCurrentSuscriptionId(response)
+      const options = {
+        method: 'GET',
+        url: `${import.meta.env.VITE_API_URL}/user/user_tier?`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('JWT')}`
+        }
+      };
+      
+      axios.request(options).then(function (response) {
+        if(response.data['res'] == 'Free'){
+          setHasSuscription(false);
+        }else{
+          setHasSuscription(true);
+        }
+      }).catch(function (error) {
+        console.error(error)
+      });
       setLoginSucess(true)
       setUserName(localStorage.getItem('userName'))
     }else{
@@ -48,10 +65,6 @@ const Subscriptions = () => {
 
   return <>
     <div className='mt-20'>
-      {loginSucess && <div className='bg-green-200 rounded-xl px-3 py-2 mx-10 flex justify-between items-center'>
-        <span>Login exitoso</span>
-        <Close sx={{ color: 'black', mr: 1, my: 0.5 }} onClick={() => setLoginSucess(false)} />
-      </div>}
       <div className='w-full flex flex-col justify-items-center'>
         <div className='w-5/6 md:w-3/4 bg-white rounded-xl p-3 md:p-10 shadow-2xl mx-auto'>
           <span className='text-xl text-primary'>Bienvenid@
@@ -59,17 +72,22 @@ const Subscriptions = () => {
           </span>
         </div>
         <div className='w-5/6 md:w-3/4 bg-white rounded-xl p-3 md:p-10 m-5 shadow-2xl mx-auto'>
-          <p className='text-primary text-3xl font-bold text-center'>Elige tu plan y accede a todas las ventajas</p>
-          <br />
-          <p className="font-light text-lg text-center text-gray-900">
-            Para continuar usando la aplicación, selecciona una de las opciones de suscripción disponibles. ¡Cada plan está diseñado para ofrecerte la mejor experiencia según tus necesidades!
-          </p>
-          <br />
-          <div className="flex flex-col md:flex-row md:justify-evenly gap-5 relative">
-            {subscriptions.length > 0 && subscriptions.map((sub, i) => {
-              return <SubscriptionContainer subscription={sub} key={i} active={currentSuscriptionId.includes(sub.id)} />
-            })}
-          </div>
+          {hasSuscription && <div>
+            <span className='text-primary text-2xl font-bold text-center'>El usuario ya tiene una suscripción activa</span>
+          </div>}
+          {!hasSuscription && <div>
+            <p className='text-primary text-3xl font-bold text-center'>Elige tu plan y accede a todas las ventajas</p>
+            <br />
+            <p className="font-light text-lg text-center text-gray-900">
+              Para continuar usando la aplicación, selecciona una de las opciones de suscripción disponibles. ¡Cada plan está diseñado para ofrecerte la mejor experiencia según tus necesidades!
+            </p>
+            <br />
+            <div className="flex flex-col md:flex-row md:justify-evenly gap-5 relative">
+              {subscriptions.length > 0 && subscriptions.map((sub, i) => {
+                return <SubscriptionContainer subscription={sub} key={i} active={currentSuscriptionId.includes(sub.id)} />
+              })}
+            </div>
+          </div>}
         </div>
       </div>
     </div>

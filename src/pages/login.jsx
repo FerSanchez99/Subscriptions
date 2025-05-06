@@ -24,6 +24,7 @@ const Login = () => {
       const decodedJWT = jwtDecode(response.data['access_token']);
       localStorage.setItem('userId', decodedJWT['user_id']);
       localStorage.setItem('userName', decodedJWT['name']);
+      
       navigate("/")
     })
     .catch((error) => {

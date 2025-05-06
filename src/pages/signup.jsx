@@ -21,19 +21,19 @@ const SignUp = () => {
   const [openModal, setOpenModal] = useState(false)
 
   const signUp = () => {
-    setOpenModal(true)
-    // axios.post(`${import.meta.env.VITE_API_URL}/User/CreateMainB2C`, {
-    //   FirstName: firstName,
-    //   FirstLastName: firstSurname,
-    //   SecondLastName: secondSurname,
-    //   Email: email 
-    // })
-    // .then((response) => {
-    //   console.log(response.data)
-    // })
-    // .catch((error) => {
-    //   setSignUpError(true)
-    // })
+    axios.post(`${import.meta.env.VITE_API_URL}/User/CreateMainB2C`, {
+      FirstName: firstName,
+      FirstLastName: firstSurname,
+      SecondLastName: secondSurname,
+      Email: email 
+    })
+    .then((response) => {
+      setOpenModal(true)
+      console.log(response.data)
+    })
+    .catch((error) => {
+      setSignUpError(true)
+    })
   }
 
   const style = {
@@ -41,7 +41,7 @@ const SignUp = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 500,
+    width: '70%',
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 2,
@@ -60,7 +60,7 @@ const SignUp = () => {
         <Box sx={style}>
           <div className="text-center">
             <h2 className="text-2xl text-primary">Cuenta creada exitosamente</h2>
-            <span className="text-xl">Ingrese al sitio usando la contraseña enviada al correo registrado y podrá seleccionar una suscripción para empezar a disfrutar los beneficios de Zurii.</span>
+            <span className="text-xl text-black">Ingrese al sitio usando la contraseña enviada al correo registrado y podrá seleccionar una suscripción para empezar a disfrutar los beneficios de Zurii.</span>
             <span className="text-primary hover:text-secondary underline block mt-3" onClick={() => navigate("/login")}>Ingresar al sitio</span>
           </div>
         </Box>
@@ -92,7 +92,7 @@ const SignUp = () => {
           <span className='text-white uppercase'>Crear cuenta</span>
         </div>
         <span className='text-primary underline cursor-pointer hover:text-secondary' onClick={() => navigate("/login")}>Regresar</span>
-        {signUpError && <span className='text-red-500 mt-3'>Error al crear usuario. Por favor intente más tarde.</span>}
+        {signUpError && <span className='text-red-500 mt-3'>Error al crear usuario. Por favor intente otra vez más tarde.</span>}
       </div>
     </div>
   </>
