@@ -42,7 +42,7 @@ const Success = () => {
   const send_to_portal_session = () => {
     console.log('Redirecting to portal session')
     axios.get(`${import.meta.env.VITE_API_URL}/create_portal_session`, {
-      session_id: sessionId
+      user_mail: localStorage.getItem('userEmail')
     })
     .then(function (response) {
       window.open(response.data['url'], '_blank').focus();
